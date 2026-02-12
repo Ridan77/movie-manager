@@ -29,8 +29,7 @@ export default defineComponent({
     </div>
     <img :src="movie.posterUrl" alt="" />
     <div class="actions">
-      <button>Details</button>
-  
+      <RouterLink :to="`movie/${movie._id}`"><button>Details</button></RouterLink>
       <button @click="$emit('delete', movie._id)">Delete</button>
     </div>
   </li>
@@ -47,6 +46,7 @@ li {
   img {
     margin: auto;
     height: 100%;
+    max-width: 100%;
     object-fit: cover;
   }
 }

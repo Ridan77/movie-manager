@@ -13,6 +13,7 @@ declare module '@/services/movie.service.js' {
   export const movieService: {
     query(): Promise<Movie[]>
     remove(movieId): Promise
+    get(movieId): Promise
     // add other methods here if you have them
   }
 }

@@ -30,6 +30,7 @@ export default {
 <style >
 body{
   font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
 }
 .header-place-holder{
   height: var(--header-h);
