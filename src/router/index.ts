@@ -1,4 +1,4 @@
-import Homepage from '@/pages/Homepage.vue'
+import Homepage from '@/pages/HomePage.vue'
 import MovieDetails from '@/pages/MovieDetails.vue'
 import MovieEdit from '@/pages/MovieEdit.vue'
 import MovieIndex from '@/pages/MovieIndex.vue'
@@ -13,15 +13,21 @@ const router = createRouter({
       component: Homepage,
     },
     {
+      path: '/',
+      name: 'MovieIndex',
+      component: MovieIndex,
+    },
+    {
       path: '/movie',
       name: 'MovieIndex',
       component: MovieIndex,
     },
-       {
+    {
       path: '/movie/:id',
       name: 'MovieDetails',
       component: MovieDetails,
-    },   {
+    },
+    {
       path: '/movie/edit/:id',
       name: 'MovieEdit',
       component: MovieEdit,

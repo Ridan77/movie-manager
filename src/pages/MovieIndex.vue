@@ -16,7 +16,17 @@ export default {
 
   computed: {},
 
-  methods: {},
+  methods: {
+    async onDelete(movieId: string) {
+ 
+      try {
+        await movieService.remove(movieId)
+        this.movies = this.movies.filter((m) => m._id !== movieId)
+      } catch (error) {
+        console.log('Couldnt delete movie', error)
+      }
+    },
+  },
 
   async created() {
     this.isLoading = true
@@ -30,13 +40,13 @@ export default {
   },
   unmounted() {},
   components: {
-    MoviesList
-  }
+    MoviesList,
+  },
 }
 </script>
 
 <template>
-  <MoviesList v-if="!isLoading" :movies="movies"/>
+  <MoviesList v-if="!isLoading" :movies="movies" @delete="onDelete" />
 </template>
 
 <style scoped></style>

@@ -1,6 +1,6 @@
 declare module '@/services/movie.service.js' {
   export type Movie = {
-    id: string // Unique identifier
+    _id: string // Unique identifier
     title: string // Movie title
     director: string // Director's name
 
@@ -12,6 +12,7 @@ declare module '@/services/movie.service.js' {
   }
   export const movieService: {
     query(): Promise<Movie[]>
+    remove(movieId): Promise
     // add other methods here if you have them
   }
 }

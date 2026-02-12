@@ -1,17 +1,5 @@
 <script lang="ts">
 export default {
-  data() {
-    return {}
-  },
-
-  computed: {},
-
-  methods: {},
-
-  created() {},
-  unmounted() {},
-}
-components: {
 }
 </script>
 

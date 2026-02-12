@@ -28,10 +28,21 @@ export default defineComponent({
 
 <template>
   <ul>
-    <li v-for="movie in movies" :key="movie.id">
-      <MoviePreview :movie="movie" />
-    </li>
+    <MoviePreview
+      @delete="$emit('delete',$event)"
+      v-for="movie in movies"
+      :key="movie._id"
+      :movie="movie"
+    />
   </ul>
 </template>
 
-<style scoped></style>
+<style scoped>
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-rows: auto 240px auto; /* header row + image row  +actions */
+  gap: 1em;
+  list-style: none;
+}
+</style>
