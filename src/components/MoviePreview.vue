@@ -30,7 +30,10 @@ export default defineComponent({
     <img :src="movie.posterUrl" alt="" />
     <div class="actions">
       <RouterLink :to="`movie/${movie._id}`"><button>Details</button></RouterLink>
-      <button @click="$emit('delete', movie._id)">Delete</button>
+      <RouterLink :to="`movie/edit/${movie._id}`"><button>Edit</button></RouterLink>
+      <a href="#"  @click="$emit('delete', movie._id)">
+        <button>Delete</button>
+      </a>
     </div>
   </li>
 </template>

@@ -14,6 +14,7 @@ declare module '@/services/movie.service.js' {
     query(): Promise<Movie[]>
     remove(movieId): Promise
     get(movieId): Promise
+    save(movie:Movie):Promise<Movie>
     // add other methods here if you have them
   }
 }
