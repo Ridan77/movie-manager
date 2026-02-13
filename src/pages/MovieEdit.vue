@@ -44,19 +44,19 @@ export default {
   <form @submit.prevent="onSubmit" v-if="movie" class="movie-edit">
     <img :src="movie.posterUrl" alt="" />
     <div class="info">
+      <p>Title</p>
       <input type="text" v-model="movie.title" />
+      <p>Director</p>
       <input type="text" v-model="movie.director" />
+      <p>Year</p>
+      
       <input type="text" v-model="movie.releaseYear" />
-      <div>
-        <input type="text" v-model="movie.runningTime" />
-        <span> minutes runtime </span>
-      </div>
-
-      <input type="text" v-model="movie.genre" />
-      <div>
-        Actors
-        <input type="text" v-model="movie.actors" />
-      </div>
+      <p>Runtime</p>
+      <input type="text" v-model="movie.runningTime" />
+      <p>Genre</p>
+      <input type="text" v-model="movie.genre" /> 
+      <p>Actors</p>
+      <input type="text" v-model="movie.actors" />
     </div>
     <div class="actions">
       <RouterLink to="/movie">
@@ -75,6 +75,9 @@ export default {
 
   .info {
     display: grid;
+    grid-template-columns: 50px auto;
+    align-items: center;
+    justify-content: start;
     padding: 0 1em;
     gap: 1em;
     input {
