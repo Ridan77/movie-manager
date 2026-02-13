@@ -4,10 +4,10 @@ export default {
 </script>
 
 <template>
-  <Footer>
+  <footer>
     <h4>Footer</h4>
     <p>All right reserved</p>
-  </Footer>
+  </footer>
 </template>
 
 <style scoped>

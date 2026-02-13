@@ -11,7 +11,7 @@ declare module '@/services/movie.service.js' {
     genre: string // Genre of the movie
   }
   export const movieService: {
-    query(): Promise<Movie[]>
+    query(filterBy?): Promise<Movie[]>
     remove(movieId): Promise
     get(movieId): Promise
     save(movie:Movie):Promise<Movie>

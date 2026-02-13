@@ -6,32 +6,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/home',
-      name: 'homepage',
-      component: Homepage,
-    },
-    {
-      path: '/',
-      name: 'MovieIndex',
-      component: MovieIndex,
-    },
-    {
-      path: '/movie',
-      name: 'MovieIndex',
-      component: MovieIndex,
-    },
-    {
-      path: '/movie/:id',
-      name: 'MovieDetails',
-      component: MovieDetails,
-    },
-    {
-      path: '/movie/edit/:id',
-      name: 'MovieEdit',
-      component: MovieEdit,
-    },
+   routes: [
+    { path: '/', name: 'MovieIndex', component: MovieIndex },
+    { path: '/home', name: 'Homepage', component: Homepage },
+    { path: '/movie', name: 'MovieIndexAlias', component: MovieIndex },
+    { path: '/movie/:id', name: 'MovieDetails', component: MovieDetails },
+    { path: '/movie/edit/:id', name: 'MovieEdit', component: MovieEdit },
+
+    // optional but useful:
+    { path: '/:pathMatch(.*)*', redirect: '/' },
+  
   ],
 })
 
