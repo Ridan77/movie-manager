@@ -1,6 +1,7 @@
 <script lang="ts">
 import AppFooter from './components/AppFooter.vue'
 import AppHeader from './components/AppHeader.vue'
+import UserMsg from './components/UserMsg.vue';
 
 export default {
 
@@ -14,13 +15,14 @@ export default {
 
   created() {},
   unmounted() {},
-  components: { AppHeader, AppFooter },
+  components: { AppHeader, AppFooter,UserMsg },
 }
 </script>
 
 <template>
   <AppHeader />
   <div class="header-place-holder"></div>
+  <UserMsg/>
   <RouterView />
   <div class="footer-place-holder"></div>
   <AppFooter />

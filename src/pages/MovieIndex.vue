@@ -1,6 +1,7 @@
 <script lang="ts">
 import FilterCmp from '@/components/FilterCmp.vue'
 import MoviesList from '@/components/MoviesList.vue'
+import { showSuccessMsg } from '@/services/event-bus.service'
 import { movieService } from '@/services/movie.service.js'
 import type { Movie } from '@/services/movie.service.js'
 export type FilterBy = {
@@ -29,6 +30,7 @@ export default {
       try {
         await movieService.remove(movieId)
         this.movies = this.movies.filter((m) => m._id !== movieId)
+        showSuccessMsg(`${movieId} successfuly deleted`)
       } catch (error) {
         console.log('Couldnt delete movie', error)
       }

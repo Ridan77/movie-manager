@@ -1,16 +1,19 @@
 <script lang="ts">
-import Loader from '@/components/Loader.vue';
+import Loader from '@/components/LoaderCmp.vue'
+import { showSuccessMsg } from '@/services/event-bus.service'
 import { movieService, type Movie } from '@/services/movie.service.js'
 
 type dataType = {
   movie: Movie | null
   isLoading: boolean
+  isEdit: boolean
 }
 export default {
   data(): dataType {
     return {
       movie: null,
       isLoading: false,
+      isEdit: false,
     }
   },
 
@@ -26,6 +29,8 @@ export default {
       try {
         const updatedMovie = await movieService.save(this.movie)
         this.$router.push('/movie')
+        const msg = this.isEdit ? 'Updeted succesfuly' : 'Movie added successfuly'
+        showSuccessMsg(msg)
         return updatedMovie
       } catch (error) {
         console.log(error)
@@ -51,15 +56,17 @@ export default {
     if (movieId) {
       try {
         this.movie = await movieService.get(movieId)
+        this.isEdit = true
       } catch (error) {
         console.log(error)
       }
     } else {
       this.movie = movieService.getEmptyMovie()
+      this.isEdit = false
     }
   },
   unmounted() {},
-  components:{Loader}
+  components: { Loader },
 }
 </script>
 
@@ -69,7 +76,7 @@ export default {
     <Loader v-if="isLoading" />
     <button
       class="get-poster"
-      v-if="!movie.posterUrl"
+      v-if="!movie.posterUrl && !isLoading"
       :disabled="!movie.title"
       @click="onGetPoster"
       type="button"
