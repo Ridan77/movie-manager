@@ -1,13 +1,16 @@
 <script lang="ts">
-import { movieService, Movie } from '@/services/movie.service.js'
+import Loader from '@/components/Loader.vue';
+import { movieService, type Movie } from '@/services/movie.service.js'
 
 type dataType = {
   movie: Movie | null
+  isLoading: boolean
 }
 export default {
   data(): dataType {
     return {
       movie: null,
+      isLoading: false,
     }
   },
 
@@ -29,10 +32,16 @@ export default {
       }
     },
     async onGetPoster() {
-      try {
-        this.movie.posterUrl = await movieService.getMoviePoster(this.movie.title)
-      } catch (error) {
-        console.log(error)
+      if (this.movie) {
+        this.isLoading = true
+        try {
+          this.movie.posterUrl = await movieService.getMoviePoster(this.movie.title)
+          console.log('this.movie.posterUrl', this.movie.posterUrl)
+        } catch (error) {
+          console.log(error)
+        } finally {
+          this.isLoading = false
+        }
       }
     },
   },
@@ -50,12 +59,14 @@ export default {
     }
   },
   unmounted() {},
+  components:{Loader}
 }
 </script>
 
 <template>
   <form @submit.prevent="onSubmit" v-if="movie" class="movie-edit">
-    <img v-if="movie.posterUrl" :src="movie.posterUrl" alt="" />
+    <img class="movie-img" v-if="movie.posterUrl && !isLoading" :src="movie.posterUrl" alt="" />
+    <Loader v-if="isLoading" />
     <button
       class="get-poster"
       v-if="!movie.posterUrl"
@@ -84,6 +95,7 @@ export default {
       <RouterLink to="/movie">
         <button type="button">Back</button>
       </RouterLink>
+      <button v-if="movie.posterUrl" type="button" @click="onGetPoster">Update poster</button>
       <button>Submit</button>
     </div>
   </form>
@@ -94,7 +106,10 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
-
+  .movie-img {
+    justify-self: end;
+    max-width: 100%;
+  }
   .get-poster {
     width: 100px;
     height: 50px;

@@ -68,7 +68,8 @@ async function getMoviePoster(title) {
     if (data.Response === 'True') {
         return data.Poster // Use this in your UI
     } else {
-        return '../../default.png'
+        // return '/public/default.png'
+        return '/public/no-image.jpg'
     }
 }
 
