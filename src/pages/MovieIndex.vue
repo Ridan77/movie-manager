@@ -34,10 +34,9 @@ export default {
       }
     },
     onFilterChange(newFilter: FilterBy) {
-      console.log('newFilter', newFilter)
       this.loadMovies(newFilter)
     },
-    async loadMovies(filterBy:FilterBy = {}) {
+    async loadMovies(filterBy: FilterBy = {}) {
       this.isLoading = true
       try {
         this.movies = await movieService.query(filterBy)
@@ -61,8 +60,22 @@ export default {
 </script>
 
 <template>
-  <FilterCmp :filterByProp="filterBy" @filterChange="onFilterChange" />
+  <div class="controls">
+    <FilterCmp :filterByProp="filterBy" @filterChange="onFilterChange" />
+    <RouterLink :to="`movie/edit/`"><button>Add a movie</button></RouterLink>
+  </div>
   <MoviesList v-if="!isLoading" :movies="movies" @delete="onDelete" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.controls {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 1fr 100px;
+  button {
+    color: var(--text);
+    font-size: 0.9em;
+    height: 100%;
+  }
+}
+</style>

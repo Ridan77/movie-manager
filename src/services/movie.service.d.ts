@@ -14,8 +14,8 @@ declare module '@/services/movie.service.js' {
     query(filterBy?): Promise<Movie[]>
     remove(movieId): Promise
     get(movieId): Promise
-    save(movie:Movie):Promise<Movie>
+    save(movie: Movie): Promise<Movie>
+    getEmptyMovie(title:string): Movie
     // add other methods here if you have them
   }
 }
-

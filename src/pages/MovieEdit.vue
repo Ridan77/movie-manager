@@ -1,6 +1,5 @@
 <script lang="ts">
-import { movieService } from '@/services/movie.service.js'
-import type { Movie } from '@/services/movie.service.js'
+import { movieService, Movie } from '@/services/movie.service.js'
 
 type dataType = {
   movie: Movie | null
@@ -29,32 +28,55 @@ export default {
         console.log(error)
       }
     },
+    async onGetPoster() {
+      try {
+        this.movie.posterUrl = await movieService.getMoviePoster(this.movie.title)
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 
   async created() {
     const movieId = this.$route.params.id
-    this.movie = await movieService.get(movieId)
+    if (movieId) {
+      try {
+        this.movie = await movieService.get(movieId)
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      this.movie = movieService.getEmptyMovie()
+    }
   },
   unmounted() {},
-  components: {},
 }
 </script>
 
 <template>
   <form @submit.prevent="onSubmit" v-if="movie" class="movie-edit">
-    <img :src="movie.posterUrl" alt="" />
+    <img v-if="movie.posterUrl" :src="movie.posterUrl" alt="" />
+    <button
+      class="get-poster"
+      v-if="!movie.posterUrl"
+      :disabled="!movie.title"
+      @click="onGetPoster"
+      type="button"
+    >
+      Get Poster
+    </button>
     <div class="info">
       <p>Title</p>
       <input type="text" v-model="movie.title" />
       <p>Director</p>
       <input type="text" v-model="movie.director" />
       <p>Year</p>
-      
+
       <input type="text" v-model="movie.releaseYear" />
       <p>Runtime</p>
       <input type="text" v-model="movie.runningTime" />
       <p>Genre</p>
-      <input type="text" v-model="movie.genre" /> 
+      <input type="text" v-model="movie.genre" />
       <p>Actors</p>
       <input type="text" v-model="movie.actors" />
     </div>
@@ -72,6 +94,12 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
+
+  .get-poster {
+    width: 100px;
+    height: 50px;
+    place-self: center;
+  }
 
   .info {
     display: grid;
